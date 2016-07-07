@@ -1,4 +1,5 @@
 instance/
+tmp/
 app/static/images
 *.db
 *.jpg
