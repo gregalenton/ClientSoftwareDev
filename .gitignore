@@ -1,0 +1,13 @@
+instance/
+app/static/images
+*.db
+*.jpg
+*.png
+.webassets-cache
+*.pyc
+*.pyo
+*.sqlite3
+*.sql
+*.py~
+.idea
+venv
