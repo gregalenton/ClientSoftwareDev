@@ -1,0 +1,60 @@
+/*content css*/
+body{
+    width: 100%; 
+    background-image: url("../images/connect.jpg");
+    background-image: 100%;
+}
+
+form {
+	padding-top: 5%;
+}
+
+.login-form input[type="text"], .login-form input[type="password"] {
+	width: 100%;
+    margin: 0;
+    padding: 5px 10px;
+    background: 0;
+    border: none;
+    border-bottom: 1px solid #FFFFFF;
+    outline: 0;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+    outline: 0;
+}
+
+.login-form button[type="submit"] {
+	width: 100%;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 16px;
+    outline: 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+/*placeholders*/
+.login-form input[type="text"]::-webkit-input-placeholder, .login-form input[type="password"]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #FFFFFF;
+}
+
+.login-form input[type="text"]::-moz-placeholder, .login-form input[type="password"]::-moz-placeholder { /* Firefox 19+ */
+  color: #FFFFFF;
+}
+
+.login-form input[type="text"]:-ms-input-placeholder, .login-form input[type="password"]:-ms-input-placeholder { /* IE 10+ */
+  color: #FFFFFF;
+}
+
+.login-form input[type="text"]:-moz-placeholder, .login-form input[type="password"]:-moz-placeholder { /* Firefox 18- */
+  color: #FFFFFF;
+}
+
+/*footer*/
+footer{
+    margin-top: 150px;  
+}    
