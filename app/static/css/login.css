@@ -1,7 +1,8 @@
 /*content css*/
 body{
+    width: 100%; 
     background-image: url("../images/connect.jpg");
-    background-size: 100%;
+    background-image: 100%;
 }
 
 form {
@@ -54,6 +55,6 @@ form {
 }
 
 /*footer*/
-.pow-copy{
-    margin: none;        
-}
+footer{
+    margin-top: 150px;  
+}    

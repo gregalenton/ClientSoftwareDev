@@ -11,9 +11,9 @@
 					<form class="login-form form-horizontal" method="post" action="{{ url_for('login') }}">
 						{{ form.csrf_token }}
 						<div class="row">
-							<div class="col-md-5 col-md-offset-5">
-								<div class="form-group">
-									<img src="{{ url_for('static',filename='images/cl_logo.png') }}" width="40%">
+							<div class="col-md-4 col-md-offset-4 logo" align="center">
+								<div class="form-group col-md-12">
+									<img src="{{ url_for('static',filename='images/cl_logo.png') }}" width="50%">
 								</div>
 							</div>
 						</div>
@@ -41,24 +41,20 @@
 					</form>
 				</div>
 			</div>
+			<div class="row">
+				<div class="nav-center" align="center">
+							<div class="pow">
+								<span class="copyright" style="color: #FFFFFF">Powered By:</span>
+							</div>
+							<div class="log">
+								<a href="http://www.leadfunnel.ph/">
+									<img src="{{ url_for('static', filename='images/logo.png') }}" width="150px">
+								</a>
+							</div>
+						</div>
+			</div>
 		</div>
 	{% endblock content %}
-	{% block footer %}
-		<footer class="navbar navbar-inverse navbar-fixed-bottom">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="col-md-3 pow-copy">
-							<span class="copyright">Powered By:</span>
-						</div>
-						<div class="col-md-4 pow-logo">
-							<img src="{{ url_for('static', filename='images/logo.png') }}" width="60%">
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
-	{% endblock footer %}
 
 	{% block js %}
 	{% endblock js %}
