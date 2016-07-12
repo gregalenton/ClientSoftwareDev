@@ -53,8 +53,3 @@ form {
 .login-form input[type="text"]:-moz-placeholder, .login-form input[type="password"]:-moz-placeholder { /* Firefox 18- */
   color: #FFFFFF;
 }
-
-/*footer*/
-footer{
-    margin-top: 150px;  
-}    
