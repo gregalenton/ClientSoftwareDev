@@ -1,22 +1,24 @@
 {% extends "base.html" %}
-	{% block title%}- Account{% endblock title %}
+	{% block title%}CliLeads - Home{% endblock title %}
 	
 	{% block css %}
-
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 	{% endblock css %}
 	
 	{% block header %}
-		<nav>
-			<div>
-				
-			</div>
-		</nav>
+		{{ super() }}
 	{% endblock header %}
 	
 	{% block content %}
-
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					
+				</div>
+			</div>
+		</div>
 	{% endblock content %}
 	
 	{% block js %}
-
+ 
 	{% endblock js %}

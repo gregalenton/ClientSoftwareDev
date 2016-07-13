@@ -4,10 +4,11 @@ from app import app
 from .forms import LoginForm
 
 @app.route('/')
+@app.route('/index')
 def index():
 	return render_template('index.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 	form = LoginForm()
 	return render_template('login.html', 

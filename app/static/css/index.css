@@ -1,0 +1,27 @@
+/*navbar*/
+.navbar {
+	position: relative;
+	padding-bottom: 10px;  
+	display: block;
+}
+
+.brand{
+	padding-left: 20px; 
+}
+
+.brand > img {
+	width: 60px; 
+	position: relative;	
+}
+
+.nav {
+	position: relative;
+	padding-top: 10px;
+	padding-left: 40px; 
+	display: inline-block;
+}
+
+.dropdown > a > img {
+	height: 30px; 
+	width: 30px; 
+}
