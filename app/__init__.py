@@ -1,23 +1,29 @@
 #imports
-import os
-from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
-import sqlite3
-
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+#from sql import createTables, addClient, addLead
+import os
+import bcrypt
+
 
 #create application
 app = Flask(__name__, instance_relative_config=True)
-app.config.update(dict(
-	DATABASE=os.path.join(app.root_path, 'sample.db'),
-	SECRET_KEY='development key',
-	USERNAME='admin',
-	PASSWORD='default'
-))
-app.config.from_envvar('CliLead_SETTINGS', silent=True)
+
+#configurations
+db = SQLAlchemy(app)
+#bcrypt = Bcrypt(app)
+app.config.from_envvar('APP_SETTINGS', silent=True)
 app.config.from_object('config')
 app.config.from_pyfile('config.py')
 
-app.database = "sample.db"
+#app.database = "sample.db"
+#createTables()
+#create dummy client
+#hash password for dummy data
+# hashed = bcrypt.hashpw('secret', bcrypt.gensalt(10))
+# addClient('Bo Malicay', 'Jollibo', 'bomalicay', hashed)
+# addLead('Bo Malicay', 'name of lead', '09324184369', 'mslmalicay@gmail.com', 'How to be you po')
 
-def connect_db():
-	return sqlite3.connect(app.database)
+from app import views
+#from app import models

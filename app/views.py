@@ -1,18 +1,61 @@
-from flask import render_template, redirect, url_for, g
-from flask_login import login_required, current_user
+from flask import *
+from flask_login import current_user
 from app import app
+from functools import wraps
 from .forms import LoginForm
+from sql import c
+from passlib.hash import sha256_crypt
+import gc
+
+def login_required(test):
+	@wraps(test)
+	def wrap(*args, **kwargs):
+		error = ''
+		if 'logged_in' in session:
+			return test(*args, **kwargs)
+		else:
+			error = 'You need to login first.'
+			return redirect(url_for('login'))																																																			
+	return wrap
 
 @app.route('/')
+@app.route('/index')
+@login_required
 def index():
-	g.db = connect_db()
-	cur = g.db.execute('select * from posts')
-	posts = [dict(title=row[], description=row[1]) for row in cur.fetchall()]
-	g.db.close()
 	return render_template('index.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+	error = ''
 	form = LoginForm()
-	return render_template('login.html', 
-							form=form)
+	try:
+		if request.method == 'POST':
+			#getting username and password
+			passw = c.execute("SELECT * FROM clients WHERE username=?", (request.form['username'],))
+			passw = c.fetchone()[4]					 
+			#check password if it matches
+			#encode utf 
+			if sha256_crypt.verify(request.form['password'], passw) == True:
+				#if request.form['password'] == passw:
+				#logged in
+				session['logged_in'] = True
+				session['username'] = request.form['username']
+				return redirect(url_for('index'))
+			else: #password does not match the username
+				error = 'Username and Password do not match!'
+				return render_template('login.html', form=form, error=error)
+
+	except Exception as e: #both username and password are incorrect
+		error = 'Invalid credentials.'
+		return render_template('login.html', form=form, error=error)
+
+	gc.collect()
+	return render_template('login.html', form=form)
+
+	
+
+@app.route('/logout')
+@login_required
+def logout():
+	session.pop('logged_in', None)
+	return redirect (url_for('login'))
