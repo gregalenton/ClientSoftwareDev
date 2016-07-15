@@ -13,3 +13,7 @@ def login():
 	form = LoginForm()
 	return render_template('login.html', 
 							form=form)
+
+@app.route('/leads')
+def leads():
+	return render_template('leads.html')
