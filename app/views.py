@@ -18,6 +18,7 @@ def login_required(test):
 			return redirect(url_for('login'))																																																			
 	return wrap
 
+
 @app.route('/')
 @app.route('/index')
 @login_required
@@ -26,6 +27,7 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+	logout()
 	error = ''
 	form = LoginForm()
 	try:
@@ -34,9 +36,7 @@ def login():
 			passw = c.execute("SELECT * FROM clients WHERE username=?", (request.form['username'],))
 			passw = c.fetchone()[4]					 
 			#check password if it matches
-			#encode utf 
 			if sha256_crypt.verify(request.form['password'], passw) == True:
-				#if request.form['password'] == passw:
 				#logged in
 				session['logged_in'] = True
 				session['username'] = request.form['username']
@@ -45,7 +45,7 @@ def login():
 				error = 'Username and Password do not match!'
 				return render_template('login.html', form=form, error=error)
 
-	except Exception as e: #both username and password are incorrect
+	except Exception as e: #username does not exist
 		error = 'Invalid credentials.'
 		return render_template('login.html', form=form, error=error)
 

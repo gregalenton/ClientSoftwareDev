@@ -8,19 +8,19 @@ class Lead(db.Model):
 	__tablename__ = "leads"
 
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	owner = db.Column(db.Integer)
+	clientID = db.Column(db.Integer)
 	leadName = db.Column(db.String, nullable=False)
 	leadPhoneNumber = db.Column(db.String)
 	leadEmail = db.Column(db.String)
 	leadInquiry = db.Column(db.String)
 
-	def __init__(self, owner, leadName, leadPhoneNumber, leadEmail, leadInquiry):
-		self.owner = owner
+	def __init__(self, clientID, leadName, leadPhoneNumber, leadEmail, leadInquiry):
+		self.clientID = clientID
 		self.leadName = leadName
 		self.leadPhoneNumber = leadPhoneNumber
 		self.leadEmail = leadEmail
 		self.leadInquiry = leadInquiry
-
+		
 	def __repr__(self):
 		return '<leadName {}'.format(self.leadName)
 

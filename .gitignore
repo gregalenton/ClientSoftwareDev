@@ -12,3 +12,5 @@ app/static/images
 *.py~
 .idea
 venv
+*.pyc
+*.db
