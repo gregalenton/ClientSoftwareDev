@@ -17,3 +17,11 @@ def login():
 @app.route('/leads')
 def leads():
 	return render_template('leads.html')
+
+@app.route('/calls')
+def calls():
+	return render_template('calls.html')
+
+@app.route('/mail')
+def mail():
+	return render_template('mail.html')

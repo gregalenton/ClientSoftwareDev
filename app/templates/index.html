@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-	{% block title%}CliLeads - Home{% endblock title %}
+	{% block title%}Leads - Home{% endblock title %}
 	
 	{% block css %}
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
@@ -13,10 +13,72 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					
+					<div class="row">
+						<div class="col-md-4 calls">
+							<div class="panel panel-default table-responsive holder-panel">
+								<div class="panel-heading">Missed Calls 
+									<span class="pull-right"><img src="{{ url_for('static', filename='images/icons/missed-call.png') }}" width="25px"></span>
+								</div>
+								<ul class="list-group missed-calls">
+									<!-- for all missed calls -->
+									<li class="list-group-item">
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- calls -->
+						<div class="col-md-8 leads">
+							<div class="panel panel-default holder-panel">
+								<div class="panel-heading">Leads
+									<span class="pull-right glyphicon glyphicon-th-list"></span>
+								</div>
+								<div class="panel-body">
+									<div class="panel-group">
+										<!-- for all leads -->
+										<div class="panel panel-default lead-panel">
+											<div class="panel-heading" data-toggle="collapse" href="#col1">
+												<div class="btn-group btn-group-sm pull-right">
+													<button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Mail">
+														<span class="glyphicon glyphicon-envelope"></span>
+													</button>
+													<button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Call">
+														<span class="glyphicon glyphicon-earphone"></span>
+													</button>
+												</div>
+												<div class="panel-title">Lead Name</div>
+											</div>
+											<div class="panel-collapse collapse" id="col1">
+												<div class="panel-body">
+													<div class="row"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- leads -->
+					</div>
+					 <!-- row -->
+					<div class="row">
+						<div class="col-md-4 msgs">
+							<div class="panel panel-default holder-panel">
+								<div class="panel-heading">Unread Emails
+									<span class="pull-right"><img src="{{ url_for('static', filename='images/icons/email.png') }}" width="25px"></span>
+								</div>
+								<ul class="list-group unread-email">
+									<!-- for all unread emails -->
+									<li class="list-group-item"></li>
+								</ul>
+							</div>
+						</div>
+						<!-- msgs -->
+					</div>
 				</div>
 			</div>
 		</div>
 	{% endblock content %}
 	
-	{% block js %}{% endblock js %}
+	{% block js %}
+		<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+	{% endblock js %}

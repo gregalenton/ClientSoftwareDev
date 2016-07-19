@@ -1,95 +1,26 @@
-/*navbar*/
-.navbar {
+ /*body*/
+ body {
+ 	background: #bfbfbf;
+ }
+
+/*holder-panel*/
+.holder-panel > .panel-body {
+	background-color: #ffffff !important;
+}
+
+ .holder-panel > .panel-heading {
+  	background-color: #262626 !important;
+  	color: #f2f2f2;
+  	text-transform: uppercase;
+  	font-weight: bolder;
+}
+
+.holder-panel > .panel-heading > img {
 	position: relative;
-	padding-top: 10px; 
-	padding-bottom: 5px;  
-	display: block;
-}
-.nav-pills > li {
-	border-radius: 80px !important;
 }
 
-.nav-pills > li.active {
-	background-color: #800000 !important;
-   	background: #800000 !important;
+/*leads*/
+.lead-panel > .panel-heading > .btn-group {
+    position: relative;
+    top: -5px;
 }
-
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {11
-   	background: #800000 !important;
-   	background-color: #800000 !important;
-}
-
-.brand{
-	padding-left: 20px; 
-}
-
-.brand > img {
-	width: 60px; 
-	position: relative;	
-}
-
-.nav, .navbar-form {
-	position: relative;
-	padding-top: 10px;
-	padding-left: 40px; 
-	display: inline-block;
-}
-
-.dropdown > a > img {
-	height: 30px; 
-	width: 30px; 
-}
-
-.dropdown-menu:before {
-  position: absolute;
-  top: -7px;
-  right: 9px;
-  display: inline-block;
-  border-right: 7px solid transparent;
-  border-bottom: 7px solid #ccc;
-  border-left: 7px solid transparent;
-  border-bottom-color: rgba(0, 0, 0, 0.2);
-  content: '';
-}
-
-.dropdown-menu:after {
-  position: absolute;
-  top: -6px;
-  right: 10px;
-  display: inline-block;
-  border-right: 6px solid transparent;
-  border-bottom: 6px solid #262626;
-  border-left: 6px solid transparent;
-  content: '';
-}
-
-.dropdown-menu {
-	background-color: #262626;
-}
-
-.dropdown-menu > li > a {
-	color: #ffe6e6; 
-}	
-
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-	background-color: #800000;
- }
-
- input[name=search] {
- 	border-color: #0d0d0d;
- 	border-radius: 15px; 
-	-moz-border-radius: 15px; 
-	-webkit-border-radius: 15px;
-	background-color: #0d0d0d;
- }
-
- .input-group-btn > button {
- 	border-color: #0d0d0d;
- 	border-radius: 30px; 
- 	margin: none;
- 	background-color: #0d0d0d;  
- }
-
- .glyphicon-search {
- 	color: #800000;
- }
