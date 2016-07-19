@@ -23,7 +23,9 @@ def login_required(test):
 @app.route('/index')
 @login_required
 def index():
-	return render_template('index.html')
+	c.execute("SELECT leadName, leadPhoneNumber, leadEmail, leadInquiry FROM leads ORDER BY id DESC")
+	entries = c.fetchall()
+	return render_template('index.html', entries, entries)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -59,3 +61,17 @@ def login():
 def logout():
 	session.pop('logged_in', None)
 	return redirect (url_for('login'))
+	return render_template('login.html', 
+							form=form)
+
+@app.route('/leads')
+def leads():
+	return render_template('leads.html')
+
+@app.route('/calls')
+def calls():
+	return render_template('calls.html')
+
+@app.route('/mail')
+def mail():
+	return render_template('mail.html')
