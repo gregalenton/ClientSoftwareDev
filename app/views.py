@@ -25,3 +25,11 @@ def calls():
 @app.route('/mail')
 def mail():
 	return render_template('mail.html')
+
+@app.route('/account')
+def account():
+	return render_template('account.html')
+
+@app.route('/settings')
+def setting():
+	return render_template('setting.html')
