@@ -12,7 +12,15 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					
+				{% for entry in entries %}
+					<strong>ID:</strong> {{ entry.id }} <br>
+    				<strong>Name:</strong> {{ entry.name }} <br>
+    				<strong>Phone Number:</strong> {{ entry.phoneNumber }} <br>
+  					<strong>Email:</strong> {{ entry.email }} <br>
+  					<strong>Inquiry:</strong> {{ entry.inquiry }} <br><br>
+  				{% else %}
+    				<li><em>Unbelievable. No leads so far</em>
+  				{% endfor %}
 				</div>
 			</div>
 		</div>
