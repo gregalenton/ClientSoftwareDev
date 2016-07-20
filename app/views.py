@@ -80,7 +80,6 @@ def calls():
 @app.route('/mail')
 def mail():
 	return render_template('mail.html')
-<<<<<<< HEAD
 
 @app.route('/account')
 def account():
