@@ -36,8 +36,11 @@ def addLead(clientID, leadName, leadPhoneNumber, leadEmail, leadInquiry):
 				VALUES (?,?,?,?,?)''',(clientID, leadName, leadPhoneNumber, leadEmail, leadInquiry))
 
 #dummy data
-# createTables()
-addClient('Bo Malicay', 'Jollibo', 'bomalicay', sha256_crypt.encrypt("secret"))	
-addLead('1', 'lead_name', '09324184369', 'mslmalicay@gmail.com', 'How to be you po?')
+addClient('Bo Malicay', 'NASA-lupa', 'bomalicay', sha256_crypt.encrypt("secret"))	
+addLead('1', 'Juan dela Cruz', '09324284362', 'juandelacruz@gmail.com', 'Do you offer a quick loan?')
+addLead('1', 'Teborsyo Hampaslupa', '09425346787', 't_hampaslupa@hotmail.com', 'Where can I buy food?')
+addLead('1', 'Pedro Bahaghari', '09324567890', 'pedrobahaghari@gmail.com', 'Is your refrigerator running?')
+addLead('1', 'Marco Buttondown', '09321112233', 'marcobuttons@hotmail.com', 'Where is Marco Polo located?')
+addLead('1', 'Juan Tamad', '09324445567', 'juantamad@yahoo.com', 'When will the guava fall from that tree?')
 connection.commit()
 #connection.close()

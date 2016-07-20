@@ -23,19 +23,19 @@ def login_required(test):
 @app.route('/index')
 @login_required
 def index():
-	c.execute("SELECT leadName, leadPhoneNumber, leadEmail, leadInquiry FROM leads ORDER BY id DESC")
-	entries = c.fetchall()
-	return render_template('index.html', entries, entries)
+	return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	logout()
 	error = ''
+
 	form = LoginForm()
+
 	try:
 		if request.method == 'POST':
 			#getting username and password
-			passw = c.execute("SELECT * FROM clients WHERE username=?", (request.form['username'],))
+			passw = c.execute('SELECT * FROM clients WHERE username=?', (request.form['username'],))
 			passw = c.fetchone()[4]					 
 			#check password if it matches
 			if sha256_crypt.verify(request.form['password'], passw) == True:
@@ -54,19 +54,24 @@ def login():
 	gc.collect()
 	return render_template('login.html', form=form)
 
-	
+
 
 @app.route('/logout')
 @login_required
 def logout():
+	form = LoginForm()
 	session.pop('logged_in', None)
-	return redirect (url_for('login'))
-	return render_template('login.html', 
-							form=form)
+	return render_template('login.html', form=form)
 
 @app.route('/leads')
 def leads():
-	return render_template('leads.html')
+	c.execute('SELECT * FROM leads WHERE clientID=1')
+	entries = [dict(id=row[0],
+					name=row[2],
+					phoneNumber=row[3],
+					email=row[4],
+					inquiry=row[5]) for row in c.fetchall()]
+	return render_template('leads.html', entries=entries)
 
 @app.route('/calls')
 def calls():
