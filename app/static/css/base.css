@@ -9,7 +9,7 @@
 	border-radius: 80px !important;
 }
 
-.nav > li > a:hover, .nav > li > a:focus {
+.nav-pills > li > a:hover, .nav-pills > li > a:focus {
 	background: #800000 !important;
 	background-color: #800000 !important;
 }

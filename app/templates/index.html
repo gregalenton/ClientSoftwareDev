@@ -21,9 +21,22 @@
 								</div>
 								<ul class="list-group missed-calls">
 									<!-- for all missed calls -->
-									<li class="list-group-item">
-									</li>
+									<li class="list-group-item"></li>
 								</ul>
+							</div>
+							<div class="row">
+								<div class="col-md-12 msgs">
+									<div class="panel panel-default holder-panel">
+										<div class="panel-heading">Unread Emails
+											<span class="pull-right"><img src="{{ url_for('static', filename='images/icons/email.png') }}" width="25px"></span>
+										</div>
+										<ul class="list-group unread-email">
+											<!-- for all unread emails -->
+											<li class="list-group-item"></li>
+										</ul>
+									</div>
+								</div>
+								<!-- msgs -->
 							</div>
 						</div>
 						<!-- calls -->
@@ -32,11 +45,11 @@
 								<div class="panel-heading">Leads
 									<span class="pull-right glyphicon glyphicon-th-list"></span>
 								</div>
-								<div class="panel-body">
+								<div class="panel-body scrollable">
 									<div class="panel-group">
-										<!-- for all leads -->
+										{% for entry in entries %}
 										<div class="panel panel-default lead-panel">
-											<div class="panel-heading" data-toggle="collapse" href="#col1">
+											<div class="panel-heading">
 												<div class="btn-group btn-group-sm pull-right">
 													<button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Mail">
 														<span class="glyphicon glyphicon-envelope"></span>
@@ -45,14 +58,34 @@
 														<span class="glyphicon glyphicon-earphone"></span>
 													</button>
 												</div>
-												<div class="panel-title">Lead Name</div>
+												<div class="panel-title lead-title" data-toggle="collapse" href="#{{ entry.id }}">{{ entry.inquiry }}</div>
 											</div>
-											<div class="panel-collapse collapse" id="col1">
-												<div class="panel-body">
-													<div class="row"></div>
-												</div>
+											<div class="panel-collapse collapse lead-info" id="{{ entry.id }}">
+												<table class="table">
+													<tbody>
+														<tr>
+															<td class="lead-label">Name</td>
+															<td class="lead-name">{{ entry.name }}</td>
+														</tr>
+														<tr>
+															<td class="lead-label">Phone Number</td>
+															<td class="lead-number">{{ entry.phoneNumber }}</td>
+														</tr>
+														<tr>
+															<td class="lead-label">Email Address</td>
+															<td class="lead-email">{{ entry.email }}</td>
+														</tr>
+													</tbody>
+												</table>
 											</div>
 										</div>
+										{% else %}
+										<div class="col-md-12">
+											<div class="no-lead">
+												<h2>No Leads Available</h2>
+											</div>
+										</div>
+										{% endfor %}
 									</div>
 								</div>
 							</div>
@@ -60,20 +93,6 @@
 						<!-- leads -->
 					</div>
 					 <!-- row -->
-					<div class="row">
-						<div class="col-md-4 msgs">
-							<div class="panel panel-default holder-panel">
-								<div class="panel-heading">Unread Emails
-									<span class="pull-right"><img src="{{ url_for('static', filename='images/icons/email.png') }}" width="25px"></span>
-								</div>
-								<ul class="list-group unread-email">
-									<!-- for all unread emails -->
-									<li class="list-group-item"></li>
-								</ul>
-							</div>
-						</div>
-						<!-- msgs -->
-					</div>
 				</div>
 			</div>
 		</div>
