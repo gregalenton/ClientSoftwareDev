@@ -6,13 +6,13 @@ with sqlite3.connect("tmp/sample.db", check_same_thread=False) as connection:
 	
 # def createTables():
 #drop existing tables if exists
-# c.execute('DROP TABLE IF EXISTS clients')
+# c.execute('DROP TABLE IF EXISTS users')
 c.execute('DROP TABLE IF EXISTS leads')
 #create clients table
-# c.execute('''CREATE TABLE clients
+# c.execute('''CREATE TABLE users
 # 		(id INTEGER PRIMARY KEY,
-# 		clientName TEXT NOT NULL,
-# 		clientCompany TEXT NOT NULL,
+# 		user_Name TEXT NOT NULL,
+# 		user_Company TEXT NOT NULL,
 # 		username TEXT NOT NULL,
 # 		password TEXT NOT NULL
 # 		)''')

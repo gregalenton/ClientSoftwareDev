@@ -20,6 +20,7 @@ app.config.from_pyfile('config.py')
 
 from app import views
 from models import User
+from db_create import *
 from db_create_users import *
 
 login_manager.login_view = "login"
