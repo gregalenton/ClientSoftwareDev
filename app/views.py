@@ -12,6 +12,8 @@ import gc
 import twilio.twiml
 from twilio.util import TwilioCapability
 
+
+@app.route('/')
 @app.route('/index')
 @login_required
 def index():
@@ -23,7 +25,6 @@ def index():
 					inquiry=row[5]) for row in c.fetchall()]
 	return render_template('index.html', entries=entries)
 
-@app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	logout()
