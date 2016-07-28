@@ -15,10 +15,17 @@ from twilio.util import TwilioCapability
 @app.route('/index')
 @login_required
 def index():
+<<<<<<< HEAD
 	c.execute('SELECT * FROM leads WHERE clientID=?', (current_user.id,))
 	entries = [dict(id=row[0],
 					name=row[2],
 					phoneNumber=row[3], 
+=======
+	c.execute('SELECT * FROM leads WHERE clientID=1')
+	entries = [dict(id=row[0],
+					name=row[2],
+					phoneNumber=row[3],
+>>>>>>> 328d882b6103c274d9b67c7e68e13847af9c8f46
 					email=row[4],
 					inquiry=row[5]) for row in c.fetchall()]
 	return render_template('index.html', entries=entries)

@@ -1,17 +1,40 @@
+/*body*/
+body {
+	background: url("../images/body.jpg");
+	background-color: #f2f2f2;
+}
 /*navbar*/
 .navbar {
+	background: rgba(0, 0, 0, 0.1);
 	position: relative;
 	padding-top: 10px; 
 	padding-bottom: 5px;  
 	display: block;
+	border: none;
 }
 .nav > li {
 	border-radius: 80px !important;
 }
 
-.nav-pills > li > a:hover, .nav-pills > li > a:focus {
-	background: #800000 !important;
-	background-color: #800000 !important;
+.nav > li > a {
+	color: #ffffff !important;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+	background: rgba(0, 0, 0, 0) !important;
+	background-color: rgba(0, 0, 0, 0) !important;
+	color: #00e6e6 !important;
+}
+
+.nav > li.active > a, .nav > li.active > a:focus, .nav > li.active > a:hover{
+	color: #00e6e6 !important;
+	background-color: rgba(0, 0, 0, 0) !important;
+	background: rgba(0, 0, 0, 0) !important;
+}
+
+.nav > li:active {
+	background-color: rgba(0, 0, 0, 0.1) !important;
+	background: rgba(0, 0, 0, 0.1) !important;
 }
 
 .brand{
@@ -19,7 +42,7 @@
 }
 
 .brand > img {
-	width: 60px; 
+	width: 80px; 
 	position: relative;	
 }
 
@@ -53,38 +76,40 @@
   right: 10px;
   display: inline-block;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid #262626;
+  border-bottom: 6px solid #ffffff;
   border-left: 6px solid transparent;
   content: '';
 }
 
 .dropdown-menu {
-	background-color: #262626;
+	color: #000000;
+	background-color: #ffffff;
 }
 
 .dropdown-menu > li > a {
-	color: #ffe6e6; 
+	color: #000000; 
 }	
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-	background-color: #800000;
+	background-color: #ffffff;
+	color: #1aa3ff;
  }
 
  input[name=search] {
- 	border-color: #0d0d0d;
+ 	border-color: #ffffff;
  	border-radius: 15px; 
 	-moz-border-radius: 15px; 
 	-webkit-border-radius: 15px;
-	background-color: #0d0d0d;
+	background-color: #ffffff;
  }
 
  .input-group-btn > button {
- 	border-color: #0d0d0d;
+ 	border-color: #ffffff;
  	border-radius: 30px; 
  	margin: none;
- 	background-color: #0d0d0d;  
+ 	background-color: #ffffff;  
  }
 
  .glyphicon-search {
- 	color: #800000;
+ 	color: #008ae6;
  }
