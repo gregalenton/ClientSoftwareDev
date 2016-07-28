@@ -12,8 +12,6 @@ import gc
 import twilio.twiml
 from twilio.util import TwilioCapability
 
-
-@app.route('/')
 @app.route('/index')
 @login_required
 def index():
