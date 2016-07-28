@@ -9,8 +9,8 @@ from .models import User
 import gc
 
 # twilio
-from twilio.util import TwilioCapability
 import twilio.twiml
+from twilio.util import TwilioCapability
 
 @app.route('/index')
 @login_required
@@ -39,28 +39,6 @@ def login():
 				error = 'Invalid username or password.'
 	return render_template('login.html', form=form, error=error)
 
-	# try:
-	# 	if request.method == 'POST':
-	# 		#getting username and password
-	# 		passw = c.execute('SELECT * FROM clients WHERE username=?', (request.form['username'],))
-	# 		passw = c.fetchone()[4]					 
-	# 		#check password if it matches
-	# 		if sha256_crypt.verify(request.form['password'], passw) == True:
-	# 			#logged in
-	# 			session['logged_in'] = True
-	# 			session['username'] = request.form['username']
-	# 			return redirect(url_for('index'))
-	# 		else: #password does not match the username
-	# 			error = 'Username and Password do not match!'
-	# 			return render_template('login.html', form=form, error=error)
-
-	# except Exception as e: #username does not exist
-	# 	error = 'Invalid credentials.'
-	# 	return render_template('login.html', form=form, error=error)
-
-	# gc.collect()
-	# return render_template('login.html', form=form)
-
 @app.route('/logout')
 @login_required
 def logout():
@@ -87,39 +65,28 @@ def calls():
 def mail():
 	return render_template('mail.html')
 
+@app.route('/voice', methods=['GET', 'POST'])
+def voice():
+	dest_number = request.values.get('PhoneNumber', None)
 
-def get_token():
-	# Returns a Twilio Client token
+	resp = twilio.twiml.Response()
 
-	capability = TwilioCapability(
-		app.config['TWILIO_ACCOUNT_SID'],
-		app.config['TWILIO_AUTH_TOKEN'])
-
-	# allow users to make outgoing calls with the twilio client
-	capability.allow_client_outgoing(app.config['TWIML_APPLICATION_SID'])
-
-	# if the user is on the support dashboard page, we allow to accept incoming calls
-	# to support agent
-	# in a real app, we also require the user to be authenticated
-	if request.args.get('forPage') == '/dashboard':
-		capability.allow_client_incoming('support_agent')
-
-	# Generate the capability token
-	token = capability.generate()
-	return jsonify({'token': token})
-
-def call():
-	#returns TwiML instructions to Twilio's POST requests
-	response = twiml.Response()
-
-	with response.dial(callerID=app.config['TWILIO_NUMBER']) as dial:
-		# if the browser sent a phoneNumber param, we know this request
-		# is a support agent trying to call a customer's phone
-		if 'phoneNumber' in request.form:
-			dial.number(request.form['phoneNumber'])
+	with resp.dial(callerId=caller_id) as r:
+		if dest_number and re.search('^[\d\(\)\- \+]+$', dest_number):
+			r.number(dest_number)
 		else:
-			# otherwise we assume this request is a customer trying
-			# to contact support from the home page
-			dial.client('support_agent')
+			r.client(dest_number)
 
-	return str(response)
+	return str(resp)
+
+@app.route('/client', methods=['GET', 'POST'])
+def client():
+	"""Respond to incoming requests."""
+
+	client_name = request.values.get('client', None) or "jenny"
+
+	capability = TwilioCapability('TWILIO_ACCOUNT_SID', 'TWILIO_AUTH_TOKEN')
+	capability.allow_client_outgoing('TWILIO_APP_SID')
+	token = capability.generate()
+
+	return render_template('client.html', token=token)

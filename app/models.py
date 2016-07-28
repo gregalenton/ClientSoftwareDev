@@ -9,9 +9,11 @@ class Lead(db.Model):
 	__tablename__ = "leads"
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	leadName = db.Column(db.String, nullable=False)
-	leadPhoneNumber = db.Column(db.String)
-	leadEmail = db.Column(db.String)
-	leadInquiry = db.Column(db.String)
+	leadPhoneNumber = db.Column(db.String, nullable=False)
+	leadEmail = db.Column(db.String, nullable=False)
+	leadInquiry = db.Column(db.String, nullable=False)
+	call_status = db.Column(db.String)
+	email_status = db.Column(db.String)
 	userID = db.Column(db.Integer, ForeignKey('users.id'))
 
 	def __init__(self, userID, leadName, leadPhoneNumber, leadEmail, leadInquiry):
