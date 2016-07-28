@@ -1,8 +1,6 @@
 instance/
 tmp/
 *.db
-*.jpg
-*.png
 .webassets-cache
 *.pyc
 *.pyo
@@ -11,5 +9,3 @@ tmp/
 *.py~
 .idea
 venv
-*.pyc
-*.db
