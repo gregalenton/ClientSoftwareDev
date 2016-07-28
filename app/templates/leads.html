@@ -2,25 +2,85 @@
 	{% block title %}Leads - Leads{% endblock title %}
 	
 	{% block css %}
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/leads.css') }}">
 	{% endblock css %}
-	
-	{% block header %}
-		{{ super() }}
-	{% endblock header %}
+
+
+	{% block leads %}active{% endblock %}
 
 	{% block content %}
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-				{% for entry in entries %}
-					<strong>ID:</strong> {{ entry.id }} <br>
-    				<strong>Name:</strong> {{ entry.name }} <br>
-    				<strong>Phone Number:</strong> {{ entry.phoneNumber }} <br>
-  					<strong>Email:</strong> {{ entry.email }} <br>
-  					<strong>Inquiry:</strong> {{ entry.inquiry }} <br><br>
-  				{% else %}
-    				<li><em>Unbelievable. No leads so far</em>
-  				{% endfor %}
+					<div class="row">
+						<div class="col-md-4">
+							<div class="panel panel-success holder-panel">
+								<div class="panel-heading">Completed Leads
+									<span class="pull-right glyphicon glyphicon-ok-sign"></span>
+								</div>
+								<ul class="list-group">
+								{% for entry in entries %}
+								{% if entry.id < 3 %}
+									<li class="list-group-item">
+										<div class="lead-info">
+											<strong>{{ entry.name }}</strong>
+											<span class="pull-right text-muted">
+												{% if entry.id > 2%}
+												<em>Yesterday</em>
+												{% else %}
+												<em>Today</em>
+												{% endif %}
+											</span>
+										</div>
+									</li>
+								{% endif %}
+								{% endfor %}
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="panel panel-danger holder-panel">
+								<div class="panel-heading">Pending Leads
+									<span class="pull-right glyphicon glyphicon-exclamation-sign"></span>
+								</div>
+								<ul class="list-group">
+								{% for entry in entries %}
+								{% if entry.id == 4 %}
+									<li class="list-group-item">
+										<div class="email-info">
+											<strong>{{ entry.name }}</strong>
+											<span class="pull-right text-muted">
+												<em>Yesterday</em>
+											</span>
+										</div>
+									</li>
+								{% endif %}
+								{% endfor %}
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="panel panel-default holder-panel">
+								<div class="panel-heading">Available Leads
+									<span class="pull-right glyphicon glyphicon-list"></span>
+								</div>
+								<ul class="list-group">
+								{% for entry in entries %}
+								{% if entry.id == 5 %}
+									<li class="list-group-item">
+										<div class="email-info">
+											<strong>{{ entry.name }}</strong>
+											<span class="pull-right text-muted">
+												<em>Yesterday</em>
+											</span>
+										</div>
+									</li>
+								{% endif %}
+								{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

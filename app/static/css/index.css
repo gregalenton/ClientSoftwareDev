@@ -1,16 +1,15 @@
- /*body*/
- body {
- 	background: #bfbfbf;
- }
-
 /*holder-panel*/
+.holder-panel {
+	border-top: solid 2px #cccccc;
+}
+
 .holder-panel > .panel-body {
-	background-color: #ffffff !important;
+	background-color: #f2f2f2 !important;
 }
 
  .holder-panel > .panel-heading {
-  	background-color: #262626 !important;
-  	color: #f2f2f2;
+  	background-color: #ffffff !important;
+  	color: #000000;
   	text-transform: uppercase;
   	font-weight: bolder;
 }
@@ -26,6 +25,11 @@
 }
 .lead-panel > .panel-heading {
 	cursor: pointer;
+	background-color: #ffffff;
+}
+
+.lead-panel > .lead-info {
+	background: #f2f2f2;
 }
 
 .leads > .holder-panel {
@@ -67,6 +71,27 @@
 .missed-calls {
 	overflow-y: scroll;
 	min-height: 155px;
+	max-height: 155px;
+}
+
+.missed-calls > li {
+	height: 55px;
+	display: block;
+}
+
+.missed-calls > li:hover, .missed-call > li:focus {
+	background-color: rgba(0,0,0,0.2);
+	cursor: pointer;
+}
+
+.missed-calls > li > .button-holder {
+	top: -20px;
+	position: relative;
+}
+
+.missed-calls > li > .missed-call-info {
+	position: relative;
+	width: 200px;
 }
 
 /*unread msgs*/
@@ -78,6 +103,12 @@
 .unread-email {
 	overflow-y: scroll;
 	min-height: 235px;
+	max-height: 235px;
+}
+
+.unread-email > li:hover, .unread-email > li:focus {
+	background-color: rgba(0,0,0,0.2);
+	cursor: pointer;
 }
 
 /*scroll-bar*/
@@ -96,9 +127,32 @@
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #262626; 
+    background: #f2f2f2; 
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: #262626;
+	background: #f2f2f2;
+}
+
+/*call-modal*/
+#call-modal > .modal-dialog > .modal-content > .modal-body > .row {
+	border-bottom: solid 2px #f2f2f2;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+/*email-modal*/
+.email-content {
+	overflow-y: scroll;
+	min-height: 280px;
+	max-height: 280px;
+	word-wrap: normal;
+	text-align: justify;
+	padding-right: 20px;
+	padding-left: 10px;
+}
+
+.email-modal-info > span {
+	padding-right: 10px; 
+	padding-left: 10px;
 }

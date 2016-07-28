@@ -23,7 +23,13 @@ def login_required(test):
 @app.route('/index')
 @login_required
 def index():
-	return render_template('index.html')
+	c.execute('SELECT * FROM leads WHERE clientID=1')
+	entries = [dict(id=row[0],
+					name=row[2],
+					phoneNumber=row[3],
+					email=row[4],
+					inquiry=row[5]) for row in c.fetchall()]
+	return render_template('index.html', entries=entries)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

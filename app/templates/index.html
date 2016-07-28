@@ -5,23 +5,32 @@
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 	{% endblock css %}
 	
-	{% block header %}
-		{{ super() }}
-	{% endblock header %}
-	
+	{% block home %}active{% endblock %}
+
 	{% block content %}
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-4 calls">
-							<div class="panel panel-default table-responsive holder-panel">
+							<div class="panel panel-default holder-panel">
 								<div class="panel-heading">Missed Calls 
 									<span class="pull-right"><img src="{{ url_for('static', filename='images/icons/missed-call.png') }}" width="25px"></span>
 								</div>
 								<ul class="list-group missed-calls">
 									<!-- for all missed calls -->
-									<li class="list-group-item"></li>
+									{% for entry in entries %}
+									<li class="list-group-item">
+										<div data-toggle="modal" data-target=".missed-call-modal{{ entry.id }}">
+											<div class="missed-call-info">
+												{{ entry.name }}
+											</div>
+										</div>
+										<div class="button-holder pull-right">
+											<button class="btn btn-success btn-sm"><span class="glyphicon glyphicon-earphone"></span></button>
+										</div>
+									</li>
+									{% endfor %}
 								</ul>
 							</div>
 							<div class="row">
@@ -32,7 +41,25 @@
 										</div>
 										<ul class="list-group unread-email">
 											<!-- for all unread emails -->
-											<li class="list-group-item"></li>
+											{% for entry in entries %}
+											<li class="list-group-item" data-toggle="modal" data-target=".email-modal{{ entry.id }}">
+												<div>
+													<div class="email-info">
+														<strong>{{ entry.name }}</strong>
+														<span class="pull-right text-muted">
+															{% if entry.id > 2%}
+															<em>Yesterday</em>
+															{% else %}
+															<em>Today</em>
+															{% endif %}
+														</span>
+													</div>
+													<div class="email-preview">
+														Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...
+													</div>
+												</div>
+											</li>
+											{% endfor %}
 										</ul>
 									</div>
 								</div>
@@ -46,19 +73,19 @@
 									<span class="pull-right glyphicon glyphicon-th-list"></span>
 								</div>
 								<div class="panel-body scrollable">
-									<div class="panel-group">
+									<div class="panel-group" id="accordion">
 										{% for entry in entries %}
 										<div class="panel panel-default lead-panel">
 											<div class="panel-heading">
 												<div class="btn-group btn-group-sm pull-right">
-													<button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Mail">
+													<button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Mail" data-container="body">
 														<span class="glyphicon glyphicon-envelope"></span>
 													</button>
-													<button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Call">
+													<button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Call" data-container="body">
 														<span class="glyphicon glyphicon-earphone"></span>
 													</button>
 												</div>
-												<div class="panel-title lead-title" data-toggle="collapse" href="#{{ entry.id }}">{{ entry.inquiry }}</div>
+												<div class="panel-title lead-title" data-toggle="collapse" href="#{{ entry.id }}" data-parent="#accordion">{{ entry.inquiry }}</div>
 											</div>
 											<div class="panel-collapse collapse lead-info" id="{{ entry.id }}">
 												<table class="table">
@@ -96,6 +123,104 @@
 				</div>
 			</div>
 		</div>
+		<!-- call modal -->
+		{% for entry in entries %}
+		<div class="modal fade missed-call-modal{{ entry.id }}" id="call-modal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title">Missed call from. . .</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="row">
+		      		<div class="col-md-6">
+		      			<strong>Caller Name</strong>
+		      		</div>
+		      		<div class="col-md-6">
+		      			{{ entry.name }}
+		      		</div>
+		      	</div>
+		      	<div class="row">
+		      		<div class="col-md-6">
+		      			<strong>Caller Number</strong>
+		      		</div>
+		      		<div class="col-md-6">
+		      			{{ entry.phoneNumber }}
+		      		</div>
+		      	</div>
+		      	<div class="row">
+		      		<div class="col-md-6">
+		      			<strong>Call Time/Date</strong>
+		      		</div>
+		      		<div class="col-md-6">
+		      			{% if entry.id > 2 %}
+		      			<p>10:23am | Yesterday</p>
+		      			{% else %}
+		      			<p>2:20pm | Today</p>
+		      			{% endif %}
+		      		</div>
+		      	</div>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		{% endfor %}
+		<!-- email-modal -->
+		{% for entry in entries %}
+		<div class="modal fade email-modal{{ entry.id }}" id="email-modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">{{ entry.inquiry }}</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<address class="email-modal-info">
+									<span class="glyphicon glyphicon-user"></span> <strong>{{ entry.name }}</strong><br>
+									<span class="glyphicon glyphicon-envelope"></span> <a href="#">{{ entry.email }}</a><br>
+									<span class="glyphicon glyphicon-earphone"></span><abbr title="Contact Number">Tel/Cel:</abbr>{{ entry.phoneNumber }}
+								</address>
+								<hr>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="email-content">
+											<strong>What is Lorem Ipsum?</strong><br> 
+											Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br><br>
+
+											<strong>Why do we use it?</strong><br>
+											It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).<br><br>
+
+											<strong>Where does it come from?</strong><br>
+											Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.<br><br>
+
+											The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.<br><br>
+
+											<strong>Where can I get some?</strong><br>
+											There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-md-12">
+										<form class="email-form">
+											<div class="form-group">
+												<label for="message-text" class="control-label">Message:</label>
+												<textarea class="form-control email-message"></textarea>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
 	{% endblock content %}
 	
 	{% block js %}
