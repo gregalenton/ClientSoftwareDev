@@ -7,14 +7,15 @@ import sqlite3
 
 #create application
 app = Flask(__name__, instance_relative_config=True)
-app.database = "tmp/sample.db"
+#app.database = "tmp/sample.db"
+
 
 #configurations
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config.from_envvar('APP_SETTINGS', silent=True)
-app.config.from_object('config')
+app.config.from_object(os.environ['APP_SETTINGS'])
 app.config.from_pyfile('config.py')
 
 from app import views

@@ -1,7 +1,7 @@
 import sqlite3
 from passlib.hash import sha256_crypt
 
-with sqlite3.connect("tmp/sample.db", check_same_thread=False) as connection:
+with sqlite3.connect("sample.db", check_same_thread=False) as connection:
 	c = connection.cursor()
 	
 # def createTables():
