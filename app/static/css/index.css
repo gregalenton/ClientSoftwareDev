@@ -8,10 +8,11 @@
 }
 
  .holder-panel > .panel-heading {
-  	background-color: #ffffff !important;
+  	background-color: #f2f2f2 !important;
   	color: #000000;
   	text-transform: uppercase;
-  	font-weight: bolder;
+  	font-weight: bold;
+  	font-family: Verdana;
 }
 
 .holder-panel > .panel-heading > img {

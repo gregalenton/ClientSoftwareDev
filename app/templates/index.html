@@ -33,6 +33,8 @@
 									{% endfor %}
 								</ul>
 							</div>
+							<!-- missed-calls -->
+
 							<div class="row">
 								<div class="col-md-12 msgs">
 									<div class="panel panel-default holder-panel">
@@ -66,7 +68,7 @@
 								<!-- msgs -->
 							</div>
 						</div>
-						<!-- calls -->
+						
 						<div class="col-md-8 leads">
 							<div class="panel panel-default holder-panel">
 								<div class="panel-heading">Leads
@@ -123,6 +125,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<!-- call modal -->
 		{% for entry in entries %}
 		<div class="modal fade missed-call-modal{{ entry.id }}" id="call-modal" tabindex="-1" role="dialog">
@@ -166,6 +169,7 @@
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 		{% endfor %}
+		
 		<!-- email-modal -->
 		{% for entry in entries %}
 		<div class="modal fade email-modal{{ entry.id }}" id="email-modal" tabindex="-1" role="dialog">
@@ -206,17 +210,30 @@
 								<hr>
 								<div class="row">
 									<div class="col-md-12">
-										<form class="email-form">
-											<div class="form-group">
-												<label for="message-text" class="control-label">Message:</label>
-												<textarea class="form-control email-message"></textarea>
+										<button class="btn btn-info btn-block reply" type="button" data-toggle="collapse" data-target="#email-reply">
+											<span class="glyphicon glyphicon-pencil"></span> Reply
+										</button>
+										<div class="collapse" id="email-reply">
+											<form class="email-form">
+												<div class="form-group">
+													<label for="message-text" class="control-label">Message:</label>
+													<textarea class="form-control email-message"></textarea>
+												</div>
+											</form>
+											<div class="modal-footer">
+												<button class="btn btn-default cancel" type="button" data-toggle="collapse" data-target="#email-reply">Cancel</button>
+												<button class="btn btn-primary" type="button">
+													<span class="glyphicon glyphicon-share-alt"></span> Send
+												</button>
 											</div>
-										</form>
+										</div>
 									</div>
 								</div>
+								<!-- reply -->
 							</div>
 						</div>
 					</div>
+					<!-- modal-body -->
 				</div>
 			</div>
 		</div>
