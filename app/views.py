@@ -4,6 +4,7 @@ from app import app
 from functools import wraps
 from .forms import LoginForm, SupportTicketForm
 from sql import c
+from flask import jsonify
 from passlib.hash import sha256_crypt
 from .models import User
 import gc
@@ -11,6 +12,7 @@ import gc
 # twilio
 import twilio.twiml
 from twilio.util import TwilioCapability
+from twilio.rest import TwilioRestClient
 
 @app.route('/index')
 @login_required
@@ -58,35 +60,43 @@ def leads():
 
 @app.route('/calls')
 def calls():
-
+	call()
 	return render_template('calls.html')
 
 @app.route('/mail')
 def mail():
+	
 	return render_template('mail.html')
 
-@app.route('/voice', methods=['GET', 'POST'])
-def voice():
-	dest_number = request.values.get('PhoneNumber', None)
+# @app.route('/calls', methods=['POST'])
+def call():
+	# Get phone number we need to call
+	phone_number = "+639324184369"
 
-	resp = twilio.twiml.Response()
+	try:
+		twilio_client = TwilioRestClient(app.config['TWILIO_ACCOUNT_SID'],
+										app.config['TWILIO_AUTH_TOKEN'])
+	except Exception as e:
+		msg = "Missing configuration variable: {0}".format(e)
+		return jsonify({'error': msg})
 
-	with resp.dial(callerId=caller_id) as r:
-		if dest_number and re.search('^[\d\(\)\- \+]+$', dest_number):
-			r.number(dest_number)
-		else:
-			r.client(dest_number)
+	try:
+		twilio_client.calls.create(from_=app.config['TWILIO_CALLER_ID'],
+									to=phone_number,
+									url=url_for('calls',
+												_external=True))
 
-	return str(resp)
+	except Exception as e:
+		app.logger.error(e)
+		return jsonify({'message': 'Call incoming!'})
 
-@app.route('/client', methods=['GET', 'POST'])
-def client():
-	"""Respond to incoming requests."""
+@app.route('/outbound', methods=['POST'])
+def outbound():
+	response = twiml.Response()
 
-	client_name = request.values.get('client', None) or "jenny"
+	response.say("Hello there. It's me Bo, from Leadfunnel.ph", voice='alice')
 
-	capability = TwilioCapability('TWILIO_ACCOUNT_SID', 'TWILIO_AUTH_TOKEN')
-	capability.allow_client_outgoing('TWILIO_APP_SID')
-	token = capability.generate()
+	with response.dial() as dial:
+		dial.number("+639324184369")
 
-	return render_template('client.html', token=token)
+	return str(response)
