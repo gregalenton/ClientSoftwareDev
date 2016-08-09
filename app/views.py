@@ -10,9 +10,22 @@ from .models import User
 import gc
 
 # twilio
-import twilio.twiml
+from twilio import twiml
 from twilio.util import TwilioCapability
-from twilio.rest import TwilioRestClient
+
+def get_token():
+	# Return a twilio Client token
+	capability = TwilioCapability(
+		app.config['TWILIO_ACCOUNT_SID'],
+		app.config['TWILIO_AUTH_TOKEN'])
+
+	#allow users to make outgoing calls with twilio client
+	capability.allow_client_outgoing(app.config['TWIML_APPLICATION_SID'])
+
+	token = capability.generate()
+
+	return jsonify({'token': token})
+
 
 @app.route('/index')
 @login_required
@@ -50,7 +63,7 @@ def logout():
 
 @app.route('/leads')
 def leads():
-	c.execute('SELECT * FROM leads WHERE clientID=1')
+	c.execute('SELECT * FROM leads WHERE clientID=?', (current_user.id,))
 	entries = [dict(id=row[0],
 					name=row[2],
 					phoneNumber=row[3],
@@ -68,35 +81,19 @@ def mail():
 	
 	return render_template('mail.html')
 
-# @app.route('/calls', methods=['POST'])
+
 def call():
-	# Get phone number we need to call
-	phone_number = "+639324184369"
-
-	try:
-		twilio_client = TwilioRestClient(app.config['TWILIO_ACCOUNT_SID'],
-										app.config['TWILIO_AUTH_TOKEN'])
-	except Exception as e:
-		msg = "Missing configuration variable: {0}".format(e)
-		return jsonify({'error': msg})
-
-	try:
-		twilio_client.calls.create(from_=app.config['TWILIO_CALLER_ID'],
-									to=phone_number,
-									url=url_for('calls',
-												_external=True))
-
-	except Exception as e:
-		app.logger.error(e)
-		return jsonify({'message': 'Call incoming!'})
-
-@app.route('/outbound', methods=['POST'])
-def outbound():
+	# Return TwiML instructions to Twilio's POST requests
 	response = twiml.Response()
 
-	response.say("Hello there. It's me Bo, from Leadfunnel.ph", voice='alice')
-
-	with response.dial() as dial:
-		dial.number("+639324184369")
+	with response.dial(callerId=app.config['TWILIO_CALLER_ID']) as dial:
+		# if the browser sent a phonenumber param, the request is a user trying to call a customer's phone
+		# if 'phoneNumber' in request.form:
+		# 	dial.number(request.form['phoneNumber'])
+		if True:
+			dial.number('+639151092427')
+		else:
+			# Otherwise it is a customer trying to contact the user 
+			dial.client('support_agent')
 
 	return str(response)
