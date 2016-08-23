@@ -33,7 +33,7 @@
 			    	<ul class="nav navbar-nav">
 			        	<li class="{% block home %}{% endblock %}"><a href="{{ url_for('index') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 			        	<li class="{% block leads %}{% endblock %}"><a href="{{ url_for('leads') }}"><span class="glyphicon glyphicon-th-list"></span> Leads</a></li>
-			        	<li class="{% block calls %}{% endblock %}"><a href="{{ url_for('calls') }}"><span class="glyphicon glyphicon-earphone"></span> Calls</a></li>
+			        	<li class="{% block calls %}{% endblock %}"><a href="{{ url_for('calls') }}" class="call-customer-button"><span class="glyphicon glyphicon-earphone"></span> Calls</a></li>
 			        	<li class="{% block mail %}{% endblock %}"><a href="{{ url_for('mail') }}"><span class="glyphicon glyphicon-envelope"></span> Mail</a></li>
 			      	</ul>
 			      	<div class="col-md-4 ">
@@ -72,5 +72,6 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<!-- bootstrap js -->
 		<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/browser-calls.js')}}"></script>
 	{% block js %}{% endblock js%}
 </html>

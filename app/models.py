@@ -37,13 +37,15 @@ class User(db.Model):
 	user_Company = db.Column(db.String, nullable=False)
 	username = db.Column(db.String, nullable=False)
 	password = db.Column(db.String, nullable=False)
+	user_phonenumber = db.Column(db.String, nullable=False)
 	leads = relationship("Lead", backref="owner")
 
-	def __init__(self, user_Name, user_Company, username, password):
+	def __init__(self, user_Name, user_Company, username, password, user_phonenumber):
 		self.user_Name = user_Name
 		self.user_Company = user_Company
 		self.username = username
 		self.password = sha256_crypt.encrypt(password)
+		self.user_phonenumber = user_phonenumber
 
 	def is_authenticated(self):
 		return True

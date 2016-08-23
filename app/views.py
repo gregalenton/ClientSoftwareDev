@@ -11,21 +11,8 @@ import gc
 
 # twilio
 from twilio import twiml
+from twilio.rest import TwilioRestClient
 from twilio.util import TwilioCapability
-
-def get_token():
-	# Return a twilio Client token
-	capability = TwilioCapability(
-		app.config['TWILIO_ACCOUNT_SID'],
-		app.config['TWILIO_AUTH_TOKEN'])
-
-	#allow users to make outgoing calls with twilio client
-	capability.allow_client_outgoing(app.config['TWIML_APPLICATION_SID'])
-
-	token = capability.generate()
-
-	return jsonify({'token': token})
-
 
 @app.route('/index')
 @login_required
@@ -71,9 +58,9 @@ def leads():
 					inquiry=row[5]) for row in c.fetchall()]
 	return render_template('leads.html', entries=entries)
 
-@app.route('/calls')
+@app.route('/calls', methods=['GET', 'POST'])
 def calls():
-	call()
+	
 	return render_template('calls.html')
 
 @app.route('/mail')
@@ -81,19 +68,25 @@ def mail():
 	
 	return render_template('mail.html')
 
-
+@app.route('/calls', methods=['POST'])
 def call():
-	# Return TwiML instructions to Twilio's POST requests
-	response = twiml.Response()
+	# # Return TwiML instructions to Twilio's POST requests
+	# response = twiml.Response()
 
-	with response.dial(callerId=app.config['TWILIO_CALLER_ID']) as dial:
-		# if the browser sent a phonenumber param, the request is a user trying to call a customer's phone
-		# if 'phoneNumber' in request.form:
-		# 	dial.number(request.form['phoneNumber'])
-		if True:
-			dial.number('+639151092427')
-		else:
-			# Otherwise it is a customer trying to contact the user 
-			dial.client('support_agent')
+	# with response.dial(callerId=app.config['TWILIO_CALLER_ID']) as dial:
+	# # 	# if the browser sent a phonenumber param, the request is a user trying to call a customer's phone
+	# # 	# if 'phoneNumber' in request.form:
+	# # 	# 	dial.number(request.form['phoneNumber'])
+	# 	if True:
+	# 		dial.number('+639324184369')
+	# 	else:
+	# 		# Otherwise it is a customer trying to contact the user 
+	# 		dial.client('support_agent')
 
-	return str(response)
+	# return str(response)
+
+	#basic
+	client = TwilioRestClient(app.config['TWILIO_ACCOUNT_SID'], app.config['TWILIO_AUTH_TOKEN'])
+	call = client.calls.create(to="+639324184369", from_=current_user.user_phonenumber, url="https://leadfunnel-sales-wizard.herokuapp.com/calls")
+
+	return call.sid
