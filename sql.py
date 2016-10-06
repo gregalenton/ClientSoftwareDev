@@ -4,8 +4,9 @@ from passlib.hash import sha256_crypt
 with sqlite3.connect("sample.db", check_same_thread=False) as connection:
 	c = connection.cursor()
 
-if not c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='leads'").fetchone():
+# if not c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='leads'").fetchone():
 	#create leads table
+	c.execute('''DROP TABLE IF EXISTS leads''')
 	c.execute('''CREATE TABLE leads
 	 		(id INTEGER PRIMARY KEY,
 	 		clientID TEXT NOT NULL,
@@ -17,23 +18,23 @@ if not c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='le
 			# call_status (dialled, missed, received)
 			# email_status (read, unread)
 
-if not c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='calls'").fetchone():
-	#create calls table
-	c.execute('''CREATE TABLE calls
-			(leadID INTEGER PRIMARY KEY,
-			caller TEXT NOT NULL,
-			date TEXT NOT NULL,
-			time TEXT NOT NULL
-			)''')
+# if not c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='calls'").fetchone():
+# 	#create calls table
+# 	c.execute('''CREATE TABLE calls
+# 			(leadID INTEGER PRIMARY KEY,
+# 			caller TEXT NOT NULL,
+# 			date TEXT NOT NULL,
+# 			time TEXT NOT NULL
+# 			)''')
 
-if not c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='emails'").fetchone():
-	#create emails table
-	c.execute('''CREATE TABLE emails
-			(leadID INTEGER PRIMARY KEY,
-			sender TEXT NOT NULL,
-			date TEXT NOT NULL,
-			time TEXT NOT NULL
-			)''')
+# if not c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='emails'").fetchone():
+# 	#create emails table
+# 	c.execute('''CREATE TABLE emails
+# 			(leadID INTEGER PRIMARY KEY,
+# 			sender TEXT NOT NULL,
+# 			date TEXT NOT NULL,
+# 			time TEXT NOT NULL
+# 			)''')
 
 
 # method for adding lead to database

@@ -19,7 +19,7 @@ function updateCallStatus(status) {
 $(document).ready(function() {
 	$.get("/support/token", {forPage: window.location.pathname}, function(data) {
 		// Set up the Twilio Client Device with the token
-		Twilio.Device.setup(data.token);
+		Twilio.Device.setup('{{ token }}');
 	});
 });
 
@@ -91,7 +91,7 @@ Twilio.Device.incoming(function(connection) {
 function callCustomer(phoneNumber) {
 	updateCallStatus("Calling " + phoneNumber + "...");
 
-	var params = {"phoneNumber": phoneNumber};
+	var params = {'phoneNumber': phoneNumber};
 	Twilio.Device.connect(params);
 }
 
